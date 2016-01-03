@@ -1,0 +1,91 @@
+group builderbuilder;
+
+parameter(param, class) ::= <<
+protected <it.type> <it.name>;
+public <class> <it.name>(<it.type> <it.name>) {
+       this.<it.name> = <it.name>;
+       return getThis();
+}
+
+
+>>
+
+create() ::= <<
+public <resultClass> create() {
+       return new <resultClass>(<arguments:{<it.name>}; separator=", ">);
+}
+
+>>
+
+extends(extendsClass, resultClass) ::= <<
+<if(extendsClass)>
+extends <extendsClass>\<B, <resultClass>\>
+<endif>
+>>
+
+builder(packageName, builderName, resultClass, createMethod, parameters, arguments, extendsClass) ::= <<
+package <packageName>;
+
+public class <builderName> <extends(...)> {
+
+       <create(...)>
+
+       protected <builderName> getThis() {
+       		 return this;
+       }
+
+       <parameters:parameter(class=builderName,...)>
+
+}
+>>
+
+abstractBuilder(packageName, builderName, resultClass, createMethod, parameters, arguments, extendsClass) ::= <<
+package <packageName>;
+
+public abstract class <builderName>\<B extends <builderName>\<B, T\>, T extends <resultClass>\>  <extends(...)> {
+
+       <create(...)>
+
+       protected abstract B getThis();
+
+       <parameters:parameter(class="B",...)>
+
+}
+>>
+
+element(element) ::= <<
+
+protected <it.type> <it.name>;
+protected boolean <it.name>HasBeenUpdated = false;
+public <it.type> get<it.name>() {
+    return <it.name>;
+}
+public void set<it.name>(<it.type> <it.name>) {
+    this.<it.name> = <it.name>;
+    <it.name>HasBeenUpdated = true;
+}
+>>
+
+crudBuilder(packageName, className, elements) ::= <<
+package <packageName>;
+
+public class <className>Base {
+
+    protected boolean hasBeenRetrievedFromTheDatabase = false;
+    public <className>Base() {
+        
+    }
+    
+    protected void retrieveFromDatabase() {
+        // TODO: get element from the database
+        hasBeenRetrievedFromTheDatabase = true;
+    }
+    
+    protected void setFromDatabaseRecord() {
+        // TODO: set from database record
+        hasBeenRetrievedFromTheDatabase = true;
+    }
+    <elements:element(...)>
+}
+>>
+
