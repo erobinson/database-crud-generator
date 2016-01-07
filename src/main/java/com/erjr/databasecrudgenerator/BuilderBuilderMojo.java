@@ -1,4 +1,4 @@
-package nu.mulli.builderbuilder;
+package com.erjr.databasecrudgenerator;
 
 import java.io.File;
 import java.io.FileWriter;
