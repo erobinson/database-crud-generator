@@ -5,8 +5,9 @@ public class Field extends DatabaseElement {
     String typeCamelCase;
     String type;
 
+    
     public Field(String name, String type) {
-        setName(name);
+        super(name);
         setType(type);
     }
 

@@ -2,6 +2,7 @@ package com.erjr.databasecrudgenerator;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 import org.antlr.stringtemplate.StringTemplate;
 import org.apache.commons.io.FileUtils;
@@ -22,7 +23,9 @@ public class TemplateGenerator {
 
     public void buildTemplateFromDatabaseStructure(StringTemplate template, DatabaseStructure databaseStructure) {
         this.template = template;
-        for (Table table : databaseStructure.tables) {
+        Set<String> tableNames = databaseStructure.tables.keySet();
+        for (String tableName : tableNames) {
+            Table table = databaseStructure.tables.get(tableName);
             String filledInTemplate = generateTemplateForTable(table);
             writeTemplateToFile(filledInTemplate, table);
         }

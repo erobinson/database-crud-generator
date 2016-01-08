@@ -7,6 +7,10 @@ public class Table extends DatabaseElement {
 
     List<Field> fields = new ArrayList<Field>();
     
+    public Table(String name) {
+        super(name);
+    }
+
     public Table addField(String name, String type) {
         Field field = new Field(name, type);
         if(!fields.contains(field)) {
