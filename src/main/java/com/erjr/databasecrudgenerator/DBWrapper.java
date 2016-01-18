@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.Properties;
 
 import org.bitbucket.krausening.Krausening;
-import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,8 +50,6 @@ public class DBWrapper {
         }
 
         conn = DriverManager.getConnection(connectionString);
-
-        Assert.assertNotNull(conn);
     }
 
     // // I don't think that this is used in the anonymizer.

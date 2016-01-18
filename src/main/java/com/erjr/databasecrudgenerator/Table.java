@@ -1,21 +1,18 @@
 package com.erjr.databasecrudgenerator;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class Table extends DatabaseElement {
 
-    List<Field> fields = new ArrayList<Field>();
+    HashMap<String, Column> columns = new HashMap<String, Column>();
     
     public Table(String name) {
         super(name);
     }
 
-    public Table addField(String name, String type) {
-        Field field = new Field(name, type);
-        if(!fields.contains(field)) {
-            fields.add(field);    
-        }
+    public Table addColumn(String name, String type) {
+        Column column = new Column(name, type);
+        columns.put(name, column);
         return this;
     }
 }

@@ -18,4 +18,8 @@ public class DatabaseElement {
     public String getName() {
         return name;
     }
+    
+    public String getNameCamelCase() {
+        return nameCamelCase;
+    }
 }

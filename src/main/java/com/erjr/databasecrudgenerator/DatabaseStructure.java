@@ -63,7 +63,7 @@ public class DatabaseStructure {
             tables.put(tableName, new Table(tableName));
         }
         Table table = tables.get(tableName);
-        table.addField(columnName, columnType);
+        table.addColumn(columnName, columnType);
     }
 
 }

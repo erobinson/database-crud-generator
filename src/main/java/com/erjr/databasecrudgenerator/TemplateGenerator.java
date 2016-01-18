@@ -48,7 +48,7 @@ public class TemplateGenerator {
     private String generateTemplateForTable(Table table) {
         template.setAttribute("packageName", packageToWriteTo);
         template.setAttribute("tableName", table.name);
-        template.setAttribute("fields", table.fields);
+        template.setAttribute("fields", table.columns);
         return template.toString();
     }
 }
