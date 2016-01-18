@@ -7,10 +7,11 @@ import org.junit.Test;
 
 public class TableTest {
 
-    private static final String TEST_COLUMN_TYPE = "varchar";
-    private static final String TEST_TABLE = "test_table";
-    private static final Object TEST_TABLE_CAMEL_CASE = "testTable";
-    private static final String TEST_COLUMN_NAME = "test_column";
+    static final String TEST_COLUMN_TYPE = "varchar";
+    static final String TEST_TABLE = "test_table";
+    static final Object TEST_TABLE_CAMEL_CASE = "testTable";
+    static final String TEST_COLUMN_NAME = "test_column";
+    public static final String TEST_COLUMN_TYPE_INT = "int";
     private Table table;
 
     @Before

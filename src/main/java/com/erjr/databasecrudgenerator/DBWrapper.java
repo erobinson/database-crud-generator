@@ -30,7 +30,7 @@ public class DBWrapper {
         dbName = connectionProperties.getProperty("database.name");
         server = connectionProperties.getProperty("database.server");
         password = connectionProperties.getProperty("database.password");
-        userName = connectionProperties.getProperty("database.userName");
+        userName = connectionProperties.getProperty("database.user.name");
     }
 
     protected void connect() throws Exception {

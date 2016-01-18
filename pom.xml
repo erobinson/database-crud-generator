@@ -9,6 +9,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <slf4j.version>1.7.5</slf4j.version>
     </properties>
     <developers>
@@ -27,7 +28,9 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -102,10 +105,65 @@
             <artifactId>guava</artifactId>
             <version>19.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-report-plugin</artifactId>
-            <version>2.19.1</version>
-        </dependency>
+        <!-- <dependency> -->
+        <!-- <groupId>org.apache.maven.plugins</groupId> -->
+        <!-- <artifactId>maven-surefire-report-plugin</artifactId> -->
+        <!-- <version>2.19.1</version> -->
+        <!-- </dependency> -->
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>integration-test</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.18.1</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <!-- Needed to allow the Cucumber Report to generate, which will in turn fail if failures were 
+                                encountered -->
+                            <testFailureIgnore>true</testFailureIgnore>
+                            <systemPropertyVariables>
+                                <!-- Assumes common, configuration managed properties for integration testing: -->
+                                <KRAUSENING_BASE>src/test/resources/krausening/base</KRAUSENING_BASE>
+                            </systemPropertyVariables>
+                            <threadCount>${forkCount}</threadCount>
+                            <reuseForks>false</reuseForks>
+                            <parallel>classes</parallel>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>net.masterthought</groupId>
+                        <artifactId>maven-cucumber-reporting</artifactId>
+                        <version>0.0.7</version>
+                        <executions>
+                            <execution>
+                                <id>execution</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <projectName>cucumber-jvm-example</projectName>
+                                    <outputDirectory>${project.build.directory}/cucumber-html-reports</outputDirectory>
+                                    <cucumberOutput>${project.build.directory}/cucumber-html-reports</cucumberOutput>
+                                    <enableFlashCharts>true</enableFlashCharts>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
